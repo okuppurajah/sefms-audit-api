@@ -5,8 +5,8 @@ spring:
         namespace: 'sef-audit'
         processor:
           checkpoint-store:
-            container-name: 'seffilesystem'
-            account-name:  'sefstorageaccount'
+            container-name: 'audit-eventhub'
+            account-name:  'enterprisesefstorage'
     function:
       definition: consume;supply
     stream:
@@ -27,4 +27,4 @@ spring:
           errorChannelEnabled: true
       poller:
         initial-delay: 0
-        fixed-delay: 1000
+        fixed-delay: 2000
