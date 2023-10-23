@@ -2,20 +2,20 @@ spring:
   cloud:
     azure:
       eventhubs:
-        namespace: 'sef-audit'
+        namespace: 'ent-audit-namespace'
         processor:
           checkpoint-store:
-            container-name: 'audit-eventhub'
-            account-name:  'enterprisesefstorage'
+            container-name: 'content'
+            account-name:  'omptest'
     function:
-      definition: consume;supply
+      definition: supply #consume;
     stream:
       bindings:
         consume-in-0:
-          destination: 'audit'
-          group: 'audit-cg'
+          destination: 'audit-eh'
+          group: '$Default'
         supply-out-0:
-          destination: 'audit' # same as the above destination
+          destination: 'audit-eh' # same as the above destination
       eventhubs:
         bindings:
           consume-in-0:
