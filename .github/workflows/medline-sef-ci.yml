@@ -1,0 +1,39 @@
+name: Medline Enterprise DevSecOps Organization CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  security:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+          - name: Run Snyk to check  manifest file for issues
+            continue-on-error: true
+            uses: snyk/actions/iac@master
+            env:
+              SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+            with:
+              args: --scan=resource-changes
+  build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v4
+        - name: Login via Azure CLI
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+        - name: Deploy to target env step with source code in the Enterprise plan
+          uses: azure/spring-apps-deploy@v1
+          with:
+            azure-subscription: ${{ env.AZURE_SUBSCRIPTION }}
+            action: deploy
+            service-name: 'enterprise-spring-apps'
+            app-name: 'audit-api'
+            use-staging-deployment: true
+            package: ${{ env.ASC_PACKAGE_PATH }}
+            builder: 'default'
