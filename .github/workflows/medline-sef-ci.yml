@@ -30,7 +30,7 @@ jobs:
         - name: Deploy to target env step with source code in the Enterprise plan
           uses: azure/spring-apps-deploy@v1
           with:
-            azure-subscription: ${{ env.AZURE_SUBSCRIPTION }}
+            azure-subscription: "d0588ea1-2a87-4924-a8f5-2ad3c1db727f"
             action: deploy
             service-name: 'enterprise-spring-apps'
             app-name: 'audit-api'
