@@ -1,5 +1,4 @@
 name: Medline Enterprise DevSecOps Organization CI
-
 on:
   push:
     branches: [ "main" ]
