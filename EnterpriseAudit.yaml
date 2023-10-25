@@ -1,0 +1,331 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: EnterpriseAudit
+  summary: Publish application audit events to event hub
+  description: Audit events need to be persisted for compliance needs. The API provides a capability to publish these events to event hub for onward persistance in a persistance storage
+servers:
+  - url: 'http://audit.medline.com'
+paths:
+  /message:
+    get:
+      summary: Your GET endpoint
+      operationId: get-messages
+      responses: {}
+      security:
+        - subscription_key: []
+      servers:
+        - url: 'http://audit.medline.com'
+    post:
+      summary: ''
+      operationId: post-messages
+      parameters:
+        - name: bearer
+          in: header
+          description: Azure AD JWT token
+          schema:
+            type: string
+        - name: appId
+          in: header
+          description: 'appid determines persistence routing for the event data '
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              type: string
+            examples:
+              Example 1:
+                value:
+                  audit:
+                    metadata:
+                      eventTime: '2023-01-01 11:11:00'
+                      eventTimeZone: ''
+                      eventType: User/System
+                      sourceApplication: ECOM B2B
+                      assignedEventIdentifier: ''
+                      parentEventIdentifier: ''
+                      applicationSessionId: <UI Generated Session ID>
+                      userId: ''
+                      userName: ecomqa-CS
+                      userEmail: kgourwar@medline.com
+                      userType: SalesRP
+                    payload:
+                      userDefaultOrg: '218053'
+                      currentOrg: ''
+                      currentShipTo: '1008958'
+                      currentSoldTo: '1008958'
+                      imPersonatedUserId: ''
+                      domain: Order
+                      domainService: ecom-service-order
+                      domainEvent: Create order
+                      domainSubEvent: ''
+                      objectAttributes:
+                        objectType: ''
+                        objectInternalId: ''
+                        objectId: ''
+                        objectProperties:
+                          - property: ''
+                            oldValue: ''
+                            newValue: ''
+                            addedValue:
+                              - ''
+                              - ''
+                            removedValue:
+                              - ''
+                              - ''
+                      subObjectAttributes:
+                        subObjectType: ''
+                        subObjectInternalId: ''
+                        subObjectId: ''
+                        subObjectProperties:
+                          - property: ''
+                            oldValue: ''
+                            newValue: ''
+                            addedValue:
+                              - ''
+                              - ''
+                            removedValue:
+                              - ''
+                              - ''
+                      additionalAttributes:
+                        - key: orderId
+                          value: '751107801'
+      responses:
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      security:
+        - subscription_key: []
+      servers:
+        - url: 'http://audit.medline.com'
+  /messagebatch:
+    get:
+      summary: Your GET endpoint
+      operationId: get-messagebatch
+      responses: {}
+      security:
+        - subscription_key: []
+      servers:
+        - url: 'http://audit.medline.com'
+    post:
+      summary: ''
+      operationId: post-messagebatch
+      parameters:
+        - name: bearer
+          in: header
+          description: JWT auth token
+          schema:
+            type: string
+        - name: appId
+          in: header
+          description: 'application id determines the persistence routing for the event data '
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+            examples:
+              Example 1:
+                value:
+                  audit:
+                    - metadata:
+                        eventTime: '2023-01-01 11:11:00'
+                        eventTimeZone: ''
+                        eventType: User/System
+                        sourceApplication: ECOM B2B
+                        assignedEventIdentifier: ''
+                        parentEventIdentifier: ''
+                        applicationSessionId: <UI Generated Session ID>
+                        userId: ''
+                        userName: ecomqa-CS
+                        userEmail: kgourwar@medline.com
+                        userType: SalesRP
+                      payload:
+                        userDefaultOrg: '218053'
+                        currentOrg: ''
+                        currentShipTo: '1008958'
+                        currentSoldTo: '1008958'
+                        imPersonatedUserId: ''
+                        domain: Order
+                        domainService: ecom-service-order
+                        domainEvent: Create order
+                        domainSubEvent: ''
+                        objectAttributes:
+                          objectType: ''
+                          objectInternalId: ''
+                          objectId: ''
+                          objectProperties:
+                            - property: ''
+                              oldValue: ''
+                              newValue: ''
+                              addedValue:
+                                - ''
+                                - ''
+                              removedValue:
+                                - ''
+                                - ''
+                        subObjectAttributes:
+                          subObjectType: ''
+                          subObjectInternalId: ''
+                          subObjectId: ''
+                          subObjectProperties:
+                            - property: ''
+                              oldValue: ''
+                              newValue: ''
+                              addedValue:
+                                - ''
+                                - ''
+                              removedValue:
+                                - ''
+                                - ''
+                        additionalAttributes:
+                          - key: orderId
+                            value: '751107801'
+                    - metadata:
+                        eventTime: '2023-02-02 11:11:00'
+                        eventTimeZone: ''
+                        eventType: User/System
+                        sourceApplication: ECOM B2B
+                        assignedEventIdentifier: ''
+                        parentEventIdentifier: ''
+                        applicationSessionId: <UI Generated Session ID>
+                        userId: ''
+                        userName: ecomqa2-CS
+                        userEmail: kgourwar@medline.com
+                        userType: SalesRP
+                      payload:
+                        userDefaultOrg: '218054'
+                        currentOrg: ''
+                        currentShipTo: '1008958'
+                        currentSoldTo: '1008958'
+                        imPersonatedUserId: ''
+                        domain: Order
+                        domainService: ecom-service-order
+                        domainEvent: Create order
+                        domainSubEvent: ''
+                        objectAttributes:
+                          objectType: ''
+                          objectInternalId: ''
+                          objectId: ''
+                          objectProperties:
+                            - property: ''
+                              oldValue: ''
+                              newValue: ''
+                              addedValue:
+                                - ''
+                                - ''
+                              removedValue:
+                                - ''
+                                - ''
+                        subObjectAttributes:
+                          subObjectType: ''
+                          subObjectInternalId: ''
+                          subObjectId: ''
+                          subObjectProperties:
+                            - property: ''
+                              oldValue: ''
+                              newValue: ''
+                              addedValue:
+                                - ''
+                                - ''
+                              removedValue:
+                                - ''
+                                - ''
+                        additionalAttributes:
+                          - key: orderId
+                            value: '751107802'
+      responses:
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                Example 1:
+                  value:
+                    audit:
+                      metadata:
+                        eventTime: '2023-01-01 11:11:00'
+                        eventTimeZone: ''
+                        eventType: User/System
+                        sourceApplication: ECOM B2B
+                        assignedEventIdentifier: ''
+                        parentEventIdentifier: ''
+                        applicationSessionId: <UI Generated Session ID>
+                        userId: ''
+                        userName: ecomqa-CS
+                        userEmail: kgourwar@medline.com
+                        userType: SalesRP
+                      payload:
+                        userDefaultOrg: '218053'
+                        currentOrg: ''
+                        currentShipTo: '1008958'
+                        currentSoldTo: '1008958'
+                        imPersonatedUserId: ''
+                        domain: Order
+                        domainService: ecom-service-order
+                        domainEvent: Create order
+                        domainSubEvent: ''
+                        objectAttributes:
+                          objectType: ''
+                          objectInternalId: ''
+                          objectId: ''
+                          objectProperties:
+                            - property: ''
+                              oldValue: ''
+                              newValue: ''
+                              addedValue:
+                                - ''
+                                - ''
+                              removedValue:
+                                - ''
+                                - ''
+                        subObjectAttributes:
+                          subObjectType: ''
+                          subObjectInternalId: ''
+                          subObjectId: ''
+                          subObjectProperties:
+                            - property: ''
+                              oldValue: ''
+                              newValue: ''
+                              addedValue:
+                                - ''
+                                - ''
+                              removedValue:
+                                - ''
+                                - ''
+                        additionalAttributes:
+                          - key: orderId
+                            value: '751107801'
+        '500':
+          description: Internal Server Error
+      security:
+        - subscription_key: []
+      servers:
+        - url: 'http://audit.medline.com'
+components:
+  securitySchemes:
+    apiKey_1:
+      type: oauth2
+      flows:
+        clientCredentials:
+          refreshUrl: ''
+          scopes: {}
+          tokenUrl: ''
+    subscription_key:
+      type: apiKey
+      name: subscriptionKey
+      in: header
+security:
+  - subscription_key: []
