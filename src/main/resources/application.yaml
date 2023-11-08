@@ -6,9 +6,9 @@ spring:
         processor:
           checkpoint-store:
             container-name: 'content'
-            account-name:  'omptest'
+            account-name:  'sefenterprisestorage'
     function:
-      definition: supply #consume;
+      definition: supply
     stream:
       bindings:
         consume-in-0:

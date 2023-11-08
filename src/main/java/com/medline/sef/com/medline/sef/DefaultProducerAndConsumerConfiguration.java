@@ -51,8 +51,26 @@ public class DefaultProducerAndConsumerConfiguration {
     public Supplier<Message<String>> supply() {
         return () -> {
             LOGGER.info("Sending message, sequence " + i);
-            return MessageBuilder.withPayload("Hello world, " + i++).build();
+            return MessageBuilder.withPayload(generatePayload() + i++).build();
         };
     }
+
+
+    public static String generatePayload() {
+        return "{\n" +
+                "  \"id\": \"1807\",\n" +
+                "  \"topic\": \"audit\",\n" +
+                "  \"eventType\": \"ecom-audit\",\n" +
+                "  \"subject\": \"myapp/vehicles/motorcycles\",\n" +
+                "  \"eventTime\": \"2017-08-10T21:03:07+00:00\",\n" +
+                "  \"data\": {\n" +
+                "    \"make\": \"Ducati\",\n" +
+                "    \"applicationID\": \"ecom\",\n" +
+                "    \"model\": \"Monster\"\n" +
+                "  },\n" +
+                "  \"dataVersion\": \"1.0\"\n" +
+                "}";
+    }
+
 
 }
